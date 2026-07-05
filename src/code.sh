@@ -15,7 +15,7 @@ main() {
 
     dx-download-all-inputs --parallel
     case "${sample_id}" in
-        *[!A-Za-z0-9._-]* | "" | .* ) echo "ERROR: unsafe sample_id" >&2; exit 1 ;;
+        *[!A-Za-z0-9._-]* | "" | .* | -* ) echo "ERROR: unsafe sample_id '${sample_id}'" >&2; exit 1 ;;
     esac
 
     strip() {  # $1 = input field name, $2 = output filename, $3 = dx output field
