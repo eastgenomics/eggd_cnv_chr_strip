@@ -42,8 +42,29 @@ def test_header_only_passthrough(tmp_path):
 def test_no_chromosome_column_errors(tmp_path):
     p, o = tmp_path / "x.tsv", tmp_path / "y.tsv"
     p.write_text("foo\tbar\n1\t2\n")
-    with pytest.raises(ChrColumnError):
+    with pytest.raises(ChrColumnError, match="expected one of"):
         strip_file(p, o)
+
+
+def test_missing_chrom_value_passthrough(tmp_path):
+    """Rows with an empty or absent chromosome cell are passed through verbatim."""
+    p, o = tmp_path / "in.tsv", tmp_path / "out.tsv"
+    # row 1: chrom field is empty string; row 2: row is shorter than the chrom index
+    p.write_text("chromosome\tstart\tend\n\t1\t100\nchr7\t2\t200\n")
+    n = strip_file(p, o)
+    lines = o.read_text().splitlines()
+    assert n == 1                              # only the chr7 row was rewritten
+    assert lines[1].split("\t")[0] == ""       # empty chrom passed through unchanged
+    assert lines[2].split("\t")[0] == "7"      # normal row still stripped
+
+
+def test_extra_fields_passthrough(tmp_path):
+    """Extra columns beyond the chromosome index are preserved exactly."""
+    p, o = tmp_path / "in.tsv", tmp_path / "out.tsv"
+    p.write_text("chromosome\tstart\tend\textra1\textra2\nchr7\t1\t100\tfoo\tbar\n")
+    strip_file(p, o)
+    row = o.read_text().splitlines()[1].split("\t")
+    assert row == ["7", "1", "100", "foo", "bar"]
 
 
 def test_crlf_terminators_preserved(tmp_path):

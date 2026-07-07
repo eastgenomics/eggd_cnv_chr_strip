@@ -34,15 +34,20 @@ def strip_file(in_path, out_path, chrom_column=None) -> int:
         return 0
     idx = _chrom_index(lines[0].rstrip("\r\n").split("\t"), chrom_column)
     if idx is None:
-        raise ChrColumnError(f"no chromosome column in {in_path}: {lines[0]!r}")
+        raise ChrColumnError(
+            f"no chromosome column found in {in_path!r}; "
+            f"expected one of {_CHROM_HEADERS} in header row: {lines[0]!r}"
+        )
     out, n = [lines[0]], 0                       # header passed through verbatim
     for line in lines[1:]:
         body = line.rstrip("\r\n")
         term = line[len(body):]                  # keep original terminator
         fields = body.split("\t")
         if len(fields) > idx and fields[idx]:
+            # chrom field present and non-empty — strip the prefix
             fields[idx] = strip_chrom(fields[idx])
             n += 1
+        # else: short/ragged row or empty chrom cell — pass through verbatim
         out.append("\t".join(fields) + term)
     with open(out_path, "w", newline="") as fh:
         fh.write("".join(out))

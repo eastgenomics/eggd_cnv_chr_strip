@@ -7,13 +7,13 @@
   "developers": ["org-emee_1"],
   "authorizedUsers": ["org-emee_1"],
   "inputSpec": [
-    {"name": "sample_id",          "class": "string", "label": "Sample ID (output stem)"},
-    {"name": "cnvkit_cnr",         "class": "file",   "label": "CNVkit *.cnr",           "optional": true},
-    {"name": "cnvkit_cns",         "class": "file",   "label": "CNVkit *.cns",           "optional": true},
-    {"name": "cnvkit_call_cns",    "class": "file",   "label": "CNVkit *.call.cns",      "optional": true},
-    {"name": "cnvkit_genemetrics", "class": "file",   "label": "CNVkit *.genemetrics.tsv", "optional": true},
-    {"name": "purple_cnv_somatic", "class": "file",   "label": "PURPLE *.purple.cnv.somatic.tsv", "optional": true},
-    {"name": "purple_cnv_gene",    "class": "file",   "label": "PURPLE *.purple.cnv.gene.tsv",    "optional": true}
+    {"name": "sample_id",          "class": "string", "label": "Sample ID (output stem)",                  "help": "Sample identifier used as the stem for all output filenames (e.g. SAMPLE123)."},
+    {"name": "cnvkit_cnr",         "class": "file",   "label": "CNVkit *.cnr",           "optional": true, "help": "CNVkit copy-number ratio TSV produced by eggd_cnvkit. Contains per-bin log2 coverage ratios."},
+    {"name": "cnvkit_cns",         "class": "file",   "label": "CNVkit *.cns",           "optional": true, "help": "CNVkit copy-number segments TSV produced by eggd_cnvkit. Contains segmented log2 ratios."},
+    {"name": "cnvkit_call_cns",    "class": "file",   "label": "CNVkit *.call.cns",      "optional": true, "help": "CNVkit called copy-number segments TSV produced by eggd_cnvkit. Includes integer CN calls."},
+    {"name": "cnvkit_genemetrics", "class": "file",   "label": "CNVkit *.genemetrics.tsv", "optional": true, "help": "CNVkit gene-level copy-number metrics TSV produced by eggd_cnvkit. One row per gene."},
+    {"name": "purple_cnv_somatic", "class": "file",   "label": "PURPLE *.purple.cnv.somatic.tsv", "optional": true, "help": "PURPLE somatic copy-number segments TSV produced by eggd_purple. Contains purity/ploidy-adjusted CN calls."},
+    {"name": "purple_cnv_gene",    "class": "file",   "label": "PURPLE *.purple.cnv.gene.tsv",    "optional": true, "help": "PURPLE gene-level copy-number estimates TSV produced by eggd_purple. One row per gene."}
   ],
   "outputSpec": [
     {"name": "cnvkit_cnr_nochr",         "class": "file", "label": "{s}.nochr.cnr",                    "optional": true},

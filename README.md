@@ -10,9 +10,20 @@ For each supplied CNV file, rewrites **only the `chromosome` column** (`chr1→1
 line-preserving rewrite (not a CSV round-trip). A header-only input yields a header-only output.
 
 ## Inputs
-`sample_id` is required; the six CNV file inputs are all optional (the workflow links all six):
-`sample_id`, `cnvkit_cnr`, `cnvkit_cns`, `cnvkit_call_cns`, `cnvkit_genemetrics`,
-`purple_cnv_somatic`, `purple_cnv_gene`.
+
+`sample_id` is required; all six CNV file inputs are optional (the
+[`eggd_atlas_cnv`](https://github.com/eastgenomics/eggd_atlas_cnv) workflow links all six
+automatically):
+
+| Input | Source app | File type |
+|---|---|---|
+| `sample_id` | — | Sample identifier used as the output file stem |
+| `cnvkit_cnr` | eggd_cnvkit | Copy-number ratio file (`.cnr`) |
+| `cnvkit_cns` | eggd_cnvkit | Copy-number segments file (`.cns`) |
+| `cnvkit_call_cns` | eggd_cnvkit | Called segments file (`.call.cns`) |
+| `cnvkit_genemetrics` | eggd_cnvkit | Gene-level copy-number metrics (`.genemetrics.tsv`) |
+| `purple_cnv_somatic` | eggd_purple | PURPLE somatic copy-number segments (`.purple.cnv.somatic.tsv`) |
+| `purple_cnv_gene` | eggd_purple | PURPLE gene-level copy-number estimates (`.purple.cnv.gene.tsv`) |
 
 ## Outputs
 `{sample}.nochr.cnr`, `.nochr.cns`, `.nochr.call.cns`, `.nochr.genemetrics.tsv`,
