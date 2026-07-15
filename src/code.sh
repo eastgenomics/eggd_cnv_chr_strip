@@ -1,5 +1,5 @@
 #!/bin/bash
-# eggd_cnv_chr_strip v0.1.0 (final stage) — Ensembl-named copies of CNV text files.
+# eggd_cnv_chr_strip v1.0.0 (final stage) — Ensembl-named copies of CNV text files.
 # Writes *.nochr.* copies with the chr prefix stripped from the CHROMOSOME COLUMN ONLY
 # (chrM/chrMT -> MT). Never modifies the originals (CNVkit's own outputs; PURPLE's inside
 # purple_tar). Delegates the transform to the bundled pure-Python atlas_helpers.chr_strip.
